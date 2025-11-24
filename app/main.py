@@ -7,6 +7,12 @@ from app.database import engine, SessionLocal
 from app.models import Base, UserDB
 from app.schemas import UserCreate, UserRead
 
-app = FastAPI()
-Base.metadata.create_all(bind=engine)
+app = FastAPI(title="Service A - Greeting API")
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+@app.get("/api/greet/{name}")
+def greet(name: str):
+    return {"message": f"Hello, {name} from Service A!"}
